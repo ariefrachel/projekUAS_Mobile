@@ -15,6 +15,11 @@
         android:label="Asia Tenggara"
         tools:layout="@layout/fragment_asia_tenggara" />
     <fragment
+        android:id="@+id/nav_asiatimur"
+        android:name="com.arief.myuas.AsiaTimurFragment"
+        android:label="Asia Timur"
+        tools:layout="@layout/fragment_asia_timur" />
+    <fragment
         android:id="@+id/nav_asiaselatan"
         android:name="com.arief.myuas.AsiaSelatanFragment"
         android:label="Asia Selatan"

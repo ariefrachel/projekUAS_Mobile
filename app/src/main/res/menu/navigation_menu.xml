@@ -5,13 +5,13 @@
             android:icon="@drawable/ic_dashboard"
             android:title="Dashboard"/>
         <item android:id="@+id/nav_asiatimur"
-            android:icon="@drawable/ic_tamu"
-            android:title="Asia Timur"/>
+            android:title="Asia Timur"
+            android:icon="@drawable/asiatimur"/>
         <item android:id="@+id/nav_asiatenggara"
-            android:icon="@drawable/ic_karyawan"
-            android:title="Asia Tenggara"/>
+            android:title="Asia Tenggara"
+            android:icon="@drawable/asiatenggara"/>
         <item android:id="@+id/nav_asiaselatan"
-            android:icon="@drawable/ic_logout"
-            android:title="Asia Selatan"/>
+            android:title="Asia Selatan"
+            android:icon="@drawable/asiaselatan"/>
     </group>
 </menu>

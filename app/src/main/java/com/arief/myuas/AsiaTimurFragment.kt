@@ -14,9 +14,9 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class AsiaSelatanFragment : Fragment() {
+class AsiaTimurFragment : Fragment() {
     private val api by lazy { apiClient().endpoint}
-    private lateinit var recyclerViewAdapter: RecyclerViewAdapterTiga
+    private lateinit var recyclerViewAdapter: RecyclerViewAdapterDua
     private lateinit var listWisata : RecyclerView
 
     override fun onCreateView (
@@ -24,20 +24,20 @@ class AsiaSelatanFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_asia_selatan, container, false)
+        return inflater.inflate(R.layout.fragment_asia_timur, container, false)
     }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         super.onViewCreated(view, savedInstanceState)
-        listWisata = view.findViewById(R.id.selatan)
+        listWisata = view.findViewById(R.id.timur)
         setupList()
 
     }
 
     private fun setupList() {
-        recyclerViewAdapter = RecyclerViewAdapterTiga(arrayListOf())
+        recyclerViewAdapter = RecyclerViewAdapterDua(arrayListOf())
         listWisata .adapter = recyclerViewAdapter
     }
 
@@ -47,10 +47,10 @@ class AsiaSelatanFragment : Fragment() {
     }
     private fun getWisata(){
 
-        api.datatiga().enqueue(object : Callback<DataModelTiga> {
-            override fun onResponse(call: Call<DataModelTiga>, response: Response<DataModelTiga>) {
+        api.datadua().enqueue(object : Callback<DataModelDua> {
+            override fun onResponse(call: Call<DataModelDua>, response: Response<DataModelDua>) {
                 if (response.isSuccessful){
-                    val listData = response.body()!!.wisataselatan
+                    val listData = response.body()!!.wisatatimur
                     recyclerViewAdapter.setData(listData)
 
                 }else{
@@ -62,7 +62,7 @@ class AsiaSelatanFragment : Fragment() {
                 }
             }
 
-            override fun onFailure(call: Call<DataModelTiga>, t: Throwable) {
+            override fun onFailure(call: Call<DataModelDua>, t: Throwable) {
                 Log.e("reportActivity", t.toString())
             }
 

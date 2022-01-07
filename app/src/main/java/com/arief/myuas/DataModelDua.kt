@@ -1,7 +1,7 @@
 package com.arief.myuas
 
-data class DataModel (
-    val wisatatenggara: List<Data>
+data class DataModelDua (
+    val wisatatimur: List<Data>
 ){
     data class Data(
         val id : String?,

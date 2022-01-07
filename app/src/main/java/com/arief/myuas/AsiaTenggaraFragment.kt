@@ -1,61 +1,72 @@
 package com.arief.myuas
 
+import android.app.DatePickerDialog
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
+import com.arief.myuas.retrofit.apiClient
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.LinearLayoutManager
+import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-class AsiaTenggaraFragment : Fragment(), RecyclerViewAdapter.ClickListener {
+class AsiaTenggaraFragment : Fragment() {
+    private val api by lazy { apiClient().endpoint}
+    private lateinit var recyclerViewAdapter: RecyclerViewAdapter
+    private lateinit var listWisata : RecyclerView
 
-    private lateinit var adapter: RecyclerViewAdapter
-    val listData: ArrayList<DataModel> = ArrayList()
-
-    override fun onCreateView(
+    override fun onCreateView (
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?): View? {
+        savedInstanceState: Bundle?
+    ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_asia_tenggara, container, false)
-        buildDisplayData()
-        initRecyclerView(view)
-        return view
+        return inflater.inflate(R.layout.fragment_asia_tenggara, container, false)
     }
 
-    private fun initRecyclerView(view: View) {
-        val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
-        recyclerView.layoutManager = LinearLayoutManager(activity)
-        adapter = RecyclerViewAdapter(listData, this)
-        recyclerView.adapter = adapter
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        super.onViewCreated(view, savedInstanceState)
+        listWisata = view.findViewById(R.id.tenggara)
+        setupList()
+
     }
 
-    private fun buildDisplayData() {
-        listData.add(DataModel("Kijang"))
-        listData.add(DataModel("Tuing"))
-        listData.add(DataModel("Bagong"))
-        listData.add(DataModel("Suing"))
-        listData.add(DataModel("Wayah"))
-        listData.add(DataModel("Dasman"))
+    private fun setupList() {
+        recyclerViewAdapter = RecyclerViewAdapter(arrayListOf())
+        listWisata .adapter = recyclerViewAdapter
     }
 
-    companion object {
+    override fun onStart(){
+        super.onStart()
+        getWisata()
+    }
+    private fun getWisata(){
 
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance() =
-            AsiaTenggaraFragment().apply {
-                arguments = Bundle().apply {
+        api.data().enqueue(object : Callback<DataModel> {
+            override fun onResponse(call: Call<DataModel>, response: Response<DataModel>) {
+                if (response.isSuccessful){
+                    val listData = response.body()!!.wisatatenggara
+                    recyclerViewAdapter.setData(listData)
+
+                }else{
+                    Toast.makeText(
+                        activity,
+                        "gagal get data",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             }
+
+            override fun onFailure(call: Call<DataModel>, t: Throwable) {
+                Log.e("reportActivity", t.toString())
+            }
+
+        })
     }
 
-    override fun onItemClick(dataModel: DataModel) {
-        val fragment: Fragment = DetailFragment.newInstance(dataModel.title!!)
-        val transaction = activity?.supportFragmentManager!!.beginTransaction()
-        transaction.hide(activity?.supportFragmentManager!!.findFragmentByTag("main_fragment")!!)
-        transaction.add(R.id.frame_container, fragment)
-        transaction.addToBackStack(null)
-        transaction.commit()
-    }
 }

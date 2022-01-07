@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/bg"
     tools:context=".AsiaSelatanFragment"
     >
     <LinearLayout
@@ -26,11 +27,10 @@
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:itemCount="2"
-            android:id="@+id/rvPost"
-            tools:listitem="@layout/card_pertanyaan"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+        android:id="@+id/selatan"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:layout_margin="15dp"/>
 
 </LinearLayout>

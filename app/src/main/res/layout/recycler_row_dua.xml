@@ -18,7 +18,7 @@
         android:orientation="vertical"
         android:layout_margin="10dp">
         <TextView
-            android:id="@+id/namaTextView"
+            android:id="@+id/namaTextViewDua"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
@@ -31,7 +31,7 @@
             />
 
         <TextView
-            android:id="@+id/lokasiTextView"
+            android:id="@+id/lokasiTextViewDua"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
